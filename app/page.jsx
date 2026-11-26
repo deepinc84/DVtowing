@@ -1,0 +1,7 @@
+import Link from "next/link";
+import GeoFeed from "../components/GeoFeed";
+import {services,candidateIds,areas} from "../lib/registry.mjs";
+export const revalidate=300;
+export default function Home(){return <><section className="hero"><div className="hero-inner"><p className="eyebrow hero-in">DIAMOND VALLEY / FOOTHILLS</p><h1 className="hero-in">WHEN THE ROAD<br/>DOESN'T GO<br/><span>AS PLANNED.</span></h1><p className="hero-in">Towing and roadside assistance website concept. Local dispatch details and service capabilities are being verified.</p><Link className="action hero-in" href="#services">Explore services <span aria-hidden="true">↗</span></Link></div></section>
+ <section id="services" className="section" data-reveal="up"><p className="eyebrow">01 / SERVICE ARCHITECTURE</p><h2>Towing &amp; roadside assistance</h2><div className="cards">{services.filter(s=>candidateIds.includes(s.id)).map((s,i)=><Link className="service-card" key={s.id} href={s.href} data-reveal="up" style={{"--delay":Math.min(i%3,2)*65+"ms"}}><span className="eyebrow">{s.group==="towing"?"TOWING":"ROADSIDE"}</span><h3>{s.label}</h3><span aria-hidden="true">Explore ↗</span></Link>)}</div></section>
+ <section id="coverage" className="section coverage" data-reveal="left"><p className="eyebrow">02 / LOCAL COVERAGE</p><h2>Foothills communities</h2><p>Proposed community pages, subject to verified coverage.</p><div className="related">{areas.filter(a=>a.id!=="diamond-valley").map(a=><Link key={a.id} href={a.href}>{a.label}</Link>)}</div></section><GeoFeed/></>}

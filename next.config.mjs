@@ -1,0 +1,1 @@
+const config = { trailingSlash: true, poweredByHeader: false, async headers() { return [{source:"/:path*",headers:[{key:"X-Robots-Tag",value:"noindex, nofollow"},{key:"Referrer-Policy",value:"strict-origin-when-cross-origin"}]}]; } }; export default config;
