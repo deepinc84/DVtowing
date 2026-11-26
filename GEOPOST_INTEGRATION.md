@@ -19,3 +19,6 @@ HTML backup findings: homepage fadeInUp/fadeInLeft/fadeInRight/fadeIn/zoomInLeft
   
 ## Tests and acceptance
 Run npm test, npm run build, browser checks on mobile and desktop. Test genuine approved sample in isolated staging only, duplicate/revision/withdrawal, invalid signature, unapproved service/area, photo consent, GitHub failure, and cache refresh. No actual job fixtures are seeded. No production DNS, Vercel, GBP edits or Trusted Engine changes authorized.
+
+## Sender utility
+Set GEOPOST_RECEIVER_URL and GEOPOST_SECRET outside source control, then run `node scripts/send-geopost.mjs approved-job.json`. This signs the exact bytes and refuses redirects. The receiver additionally intersects configured service IDs with the presently implemented candidate routes, preventing broken related-service links. Extend candidate routes and reviewed content before expanding the allowlist. The data branch starts at the scaffold commit; source updates stay on main.
