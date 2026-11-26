@@ -1,5 +1,15 @@
+import "@fontsource/saira/600.css";
+import "@fontsource/saira/700.css";
+import "@fontsource/saira/800.css";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/600.css";
 import "./globals.css";
 import Link from "next/link";
 import MotionShell from "../components/MotionShell";
-export const metadata={title:{default:"Diamond Valley Towing | Development preview",template:"%s | Diamond Valley Towing"},robots:{index:false,follow:false}};
-export default function RootLayout({children}){return <html lang="en-CA"><body><header className="site-header"><Link href="/" className="brand">DIAMOND VALLEY<span>TOWING</span></Link><nav aria-label="Main navigation"><Link href="/#services">Services</Link><Link href="/#coverage">Coverage</Link></nav><span className="preview-label">Development preview</span></header><main id="main">{children}</main><footer className="site-footer">Diamond Valley Towing · Development preview. Service availability pending customer approval.</footer><MotionShell/></body></html>}
+import Media from "../components/Media";
+import Icon from "../components/Icons";
+import {Call,Footer} from "../components/SiteParts";
+import {phone,tel} from "../lib/site-content.mjs";
+export const metadata={title:{default:"Diamond Valley Towing & Roadside Assistance",template:"%s | Diamond Valley Tow & Recovery"},description:"Local towing and roadside assistance in Diamond Valley and the Alberta Foothills.",robots:{index:false,follow:false}};
+export default function RootLayout({children}){return <html lang="en-CA"><body><a className="skip" href="#main">Skip to content</a><div className="topline"><span><Icon name="pin" size={15}/> DIAMOND VALLEY · ALBERTA</span><a href={tel}>{phone}</a></div><header className="site-header"><Link href="/" className="brand"><Media asset="logo" alt="Diamond Valley Tow & Recovery" width={88} height={88} eager/><span>DIAMOND VALLEY<small>TOW &amp; RECOVERY</small></span></Link><nav className="desktop-nav" aria-label="Main navigation"><Link href="/towing-services/">Towing</Link><Link href="/roadside-assistance/">Roadside</Link><Link href="/service-areas/">Coverage</Link><Link href="/about-us/">About</Link></nav><Call className="btn btn-red header-call" label="Need a tow?"/><details className="mobile-menu"><summary aria-label="Open navigation"><Icon name="menu" size={27}/></summary><nav><a href="/towing-services/">Towing services</a><a href="/roadside-assistance/">Roadside assistance</a><a href="/service-areas/">Service areas</a><a href="/about-us/">About us</a><a href="/contact-us/">Contact</a></nav></details></header><main id="main">{children}</main><Footer/><a className="mobile-dispatch" href={tel}><Icon name="phone" size={23}/><span>Need roadside help? <strong>{phone}</strong></span><Icon name="arrow" size={23}/></a><MotionShell/></body></html>}
