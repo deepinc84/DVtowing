@@ -14,7 +14,7 @@ export async function POST(req){
  if(data.routeMode===true){
   if(!data.originPoint||!data.destinationPoint||typeof data.destinationPoint!=="string")throw Error("Enter both pickup and destination.");
   if(service==="recovery"&&process.env.DV_RECOVERY_ROUTE_BILLING!=="true")throw Error("Route-based recovery mileage is not approved. Call dispatch or enter confirmed chargeable mileage manually.");
-  route=await calculateRoadRoute(data.originPoint,data.destinationPoint);
+  route=await calculateRoadRoute(data.originPoint,data.destinationPoint,{pickupArea:pickup,destinationArea:destination});
   input.km=route.km;
   // Only server configuration can approve a mileage-based tow rule.
   const configured=process.env.DV_LONG_DISTANCE_BASE_CENTS;
