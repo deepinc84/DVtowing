@@ -1,0 +1,8 @@
+"use client";
+import {useState} from "react";
+import {phone,tel,email} from "../lib/site-content.mjs";
+export default function TowRequest(){
+ const [location,setLocation]=useState(""),[vehicle,setVehicle]=useState("Car, SUV or truck"),[callback,setCallback]=useState("");
+ const compose=e=>{e.preventDefault();const body="Pickup location: "+location+"\nVehicle: "+vehicle+"\nCallback: "+callback+"\nPlease confirm availability and a quote.";window.location.href="mailto:"+email+"?subject="+encodeURIComponent("Towing inquiry")+"&body="+encodeURIComponent(body);};
+ return <form id="book" className="v3-book" onSubmit={compose}><p className="v3-kicker">01 / DISPATCH</p><h2>Request a tow</h2><p>For immediate assistance, call dispatch. Use this form to prepare a non-urgent email inquiry.</p><label htmlFor="pickup">Pickup location</label><input id="pickup" value={location} onChange={e=>setLocation(e.target.value)} required maxLength={250} placeholder="Street, highway or landmark"/><label htmlFor="vehicle">Vehicle or assistance</label><select id="vehicle" value={vehicle} onChange={e=>setVehicle(e.target.value)}>{["Car, SUV or truck","Motorcycle","RV or camper","Equipment","Locked out","Battery boost","Fuel delivery"].map(v=><option key={v}>{v}</option>)}</select><label htmlFor="callback">Callback number (optional)</label><input id="callback" type="tel" autoComplete="tel" value={callback} onChange={e=>setCallback(e.target.value)} maxLength={40} placeholder="Your phone number"/><button className="v3-button" type="submit">Prepare email request <span aria-hidden="true">↗</span></button><p className="v3-form-note">Opens your email app. Nothing is sent automatically.</p><a className="v3-phone" href={tel}>Or call {phone}</a></form>
+}
