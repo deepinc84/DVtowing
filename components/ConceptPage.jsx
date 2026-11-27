@@ -1,3 +1,4 @@
+import TowingQuoteFeed from "./TowingQuoteFeed";
 import {notFound} from "next/navigation";
 import generated from "../generated/concept-pages.json";
 import {readPublicFeed} from "../lib/geopost-store.mjs";
@@ -9,4 +10,4 @@ export function conceptMetadata(path){const p=generated.pages[path];return p?{ti
 export default async function ConceptPage({path}){const p=generated.pages[path];if(!p)notFound();let section="";
 if(p.scope){let records=[];try{let feed=await readPublicFeed();if(p.scope.group)feed=feed.filter(x=>x.serviceIds.some(id=>getService(id)?.group===p.scope.group));records=selectPosts(feed,{serviceId:p.scope.serviceId||undefined,areaId:p.scope.areaId||undefined,limit:p.scope.serviceId?3:6});}catch(e){console.warn("GeoPost feed unavailable");}
 if(records.length)section=actualSection(records);else if(process.env.DV_DEMO_FIXTURES!=="false")section=p.samples||"";else section='<section class="geo-section"><div class="wrap"><p class="eyebrow">From the road</p><h2>Local service stories.</h2><p>Approved service stories will appear here as they become available.</p></div></section>';}
-return <div style={{display:"contents"}} dangerouslySetInnerHTML={{__html:p.html.replace("<!--GEOPost_SLOT-->",section)}}/>;}
+const show=Boolean(p.scope)||path==="/towing-cost/";return <><div style={{display:"contents"}} dangerouslySetInnerHTML={{__html:p.html.replace("<!--GEOPost_SLOT-->",section)}}/>{show&&<TowingQuoteFeed scope={Object.fromEntries(Object.entries(p.scope||{}).filter(([,v])=>v))}/>} {path==="/towing-cost/"&&<section className="wrap dv-quote-feed"><h2>Instant towing pricing.</h2><button type="button" className="btn red" data-tow-calculator>Calculate my tow</button> <a href="/towing-quotes/">Quote archive and rate history →</a></section>}</>;}
